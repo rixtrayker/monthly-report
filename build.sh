@@ -1,32 +1,43 @@
 #!/usr/bin/env bash
 #
-# build.sh — re-embed report-data.json into index.html
+# build.sh — re-embed each report's JSON into its HTML page
 #
-# The page reads its data two ways:
-#   1. fetch('report-data.json')  — used when served over HTTP (e.g. GitHub Pages)
-#   2. window.__EMBED__           — a fallback baked into index.html so the page
-#                                   still works when opened directly (file://, double-click)
+# Each report page reads its data two ways:
+#   1. fetch('<data>.json')  — used when served over HTTP (e.g. GitHub Pages)
+#   2. window.__EMBED__      — a fallback baked into the HTML so the page still
+#                              works when opened directly (file://, double-click)
 #
-# When you edit report-data.json you MUST re-run this so the embedded fallback
-# stays in sync with the fetched data. Otherwise file:// shows stale numbers.
+# When you edit a *-data.json you MUST re-run this so the embedded fallback stays
+# in sync with the fetched data. Otherwise file:// shows stale numbers.
+#
+# Reports handled (DATA:HTML pairs):
+#   report-data.json    -> index.html        (backend / monthly report)
+#   frontend-data.json  -> frontend.html     (new frontend: admin + central)
 #
 # Usage:
-#   ./build.sh            # re-embed, then report status
-#   ./build.sh --check    # verify embed is in sync; exit 1 if it drifted (no writes)
+#   ./build.sh            # re-embed all, report status
+#   ./build.sh --check    # verify all embeds are in sync; exit 1 if any drifted
 #
 set -euo pipefail
 
 cd "$(dirname "$0")"
 
-DATA="report-data.json"
-HTML="index.html"
+PAIRS=(
+  "report-data.json:index.html"
+  "frontend-data.json:frontend.html"
+)
 
-if [ ! -f "$DATA" ] || [ ! -f "$HTML" ]; then
-  echo "error: must be run from the repo root (missing $DATA or $HTML)" >&2
-  exit 1
-fi
+MODE="${1:-}"
+RC=0
 
-python3 - "$DATA" "$HTML" "${1:-}" <<'PY'
+for pair in "${PAIRS[@]}"; do
+  DATA="${pair%%:*}"
+  HTML="${pair##*:}"
+  if [ ! -f "$DATA" ] || [ ! -f "$HTML" ]; then
+    echo "skip: $DATA / $HTML (missing)" >&2
+    continue
+  fi
+  if python3 - "$DATA" "$HTML" "$MODE" <<'PY'
 import json, re, sys
 
 data_path, html_path, mode = sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else ""
@@ -39,23 +50,27 @@ html = open(html_path, encoding="utf-8").read()
 pat = re.compile(r"(window\.__EMBED__ = )\{.*?\}(;)", re.S)
 m = pat.search(html)
 if not m:
-    sys.exit("error: could not find 'window.__EMBED__ = {...};' block in " + html_path)
+    sys.exit("error: no 'window.__EMBED__ = {...};' block in " + html_path)
 
 current = json.loads(m.group(0)[len(m.group(1)):-1])
 in_sync = current == json.loads(data)
 
 if mode == "--check":
     if in_sync:
-        print("OK: embedded data is in sync with " + data_path)
+        print("OK: " + html_path + " in sync with " + data_path)
         sys.exit(0)
-    print("DRIFT: index.html embed differs from " + data_path + " — run ./build.sh", file=sys.stderr)
+    print("DRIFT: " + html_path + " differs from " + data_path + " — run ./build.sh", file=sys.stderr)
     sys.exit(1)
 
 if in_sync:
-    print("Already in sync — nothing to do.")
+    print("Already in sync: " + html_path)
     sys.exit(0)
 
 new = pat.sub(lambda mm: mm.group(1) + data.strip() + mm.group(2), html, count=1)
 open(html_path, "w", encoding="utf-8").write(new)
-print("Re-embedded " + data_path + " into " + html_path + ".")
+print("Re-embedded " + data_path + " -> " + html_path)
 PY
+  then :; else RC=1; fi
+done
+
+exit $RC

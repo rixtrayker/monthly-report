@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>تقرير واجهة سِجِلاتي الجديدة — لوحة الإدارة وبوّابة المراكز</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1020;
+    --bg-soft: #121a32;
+    --card: #161f3d;
+    --card-2: #1c2748;
+    --ink: #eaf0ff;
+    --ink-dim: #9fb0d6;
+    --line: #27325c;
+    --brand: #4f8cff;
+    --brand-2: #7c5cff;
+    --good: #2dd4a7;
+    --warn: #f4b740;
+    --info: #58c8ff;
+    --bad: #ff6b8a;
+    --shadow: 0 18px 50px rgba(0,0,0,.45);
+    --r: 18px;
+    --glow-1: #1b2a55;
+    --glow-2: #2a1b55;
+    --track: #27325c;
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f7fe;
+    --bg-soft: #eef2fb;
+    --card: #ffffff;
+    --card-2: #f3f6fd;
+    --ink: #16203c;
+    --ink-dim: #5d6b8c;
+    --line: #dde4f2;
+    --brand: #3a6ff0;
+    --brand-2: #7c5cff;
+    --good: #12a37b;
+    --warn: #c98a12;
+    --info: #2a93d6;
+    --bad: #e0466a;
+    --shadow: 0 14px 36px rgba(40,60,120,.12);
+    --glow-1: #d6e2ff;
+    --glow-2: #e6dcff;
+    --track: #e3e9f6;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+    font-size: 17px;
+    background: radial-gradient(1200px 700px at 90% -10%, var(--glow-1) 0%, transparent 55%),
+                radial-gradient(1000px 600px at 0% 0%, var(--glow-2) 0%, transparent 50%),
+                var(--bg);
+    color: var(--ink);
+    transition: background .3s, color .3s;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 20px 80px; }
+
+  /* ---------- Header ---------- */
+  header.hero {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    background: linear-gradient(135deg, rgba(79,140,255,.14), rgba(124,92,255,.10)), var(--card);
+    padding: 34px 32px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  header.hero::after {
+    content: "";
+    position: absolute; inset: -2px;
+    background: radial-gradient(400px 200px at 85% 0%, rgba(124,92,255,.25), transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(79,140,255,.16); color: #cfe0ff;
+    border: 1px solid rgba(79,140,255,.35);
+    padding: 7px 16px; border-radius: 999px; font-size: 15px; font-weight: 600;
+  }
+  .badge .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--good); box-shadow: 0 0 12px var(--good); }
+  h1 { font-size: clamp(30px, 4.5vw, 46px); margin: 16px 0 6px; font-weight: 700; letter-spacing: -.5px; }
+  .sub { color: var(--ink-dim); font-size: 18px; margin: 0; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; color: var(--ink-dim); font-size: 15.5px; }
+  .hero-meta b { color: var(--ink); }
+
+  /* ---------- Overall gauge ---------- */
+  .overall {
+    display: flex; align-items: center; gap: 26px; flex-wrap: wrap;
+    margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line);
+  }
+  .ring { position: relative; width: 130px; height: 130px; flex: none; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .num {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-size: 34px; font-weight: 700;
+  }
+  .ring .num small { font-size: 16px; color: var(--ink-dim); font-weight: 500; }
+  .overall-text { flex: 1; min-width: 240px; }
+  .overall-text h2 { margin: 0 0 6px; font-size: 22px; line-height: 1.5; }
+  .overall-text p { margin: 0; color: var(--ink-dim); font-size: 16px; }
+
+  /* ---------- KPI strip ---------- */
+  .kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin: 22px 0 8px; }
+  .kpi {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+    padding: 16px 14px; text-align: center; transition: transform .2s, border-color .2s;
+  }
+  .kpi:hover { transform: translateY(-3px); border-color: var(--brand); }
+  .kpi .v { font-size: 32px; font-weight: 700; line-height: 1; }
+  .kpi .l { font-size: 14px; color: var(--ink-dim); margin-top: 8px; }
+  .kpi-loc {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(45,212,167,.10), rgba(255,107,138,.08)), var(--card);
+    border-color: rgba(45,212,167,.3);
+  }
+  .kpi-loc .v { font-size: 36px; display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .kpi-loc .loc-add { color: var(--good); }
+  .kpi-loc .loc-del { color: var(--bad); }
+  .kpi-loc .loc-sep { color: var(--ink-dim); font-weight: 400; opacity: .6; }
+
+  /* ---------- Section ---------- */
+  section { margin-top: 40px; }
+  .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .sec-head h2 { font-size: 27px; margin: 0; }
+  .sec-head .bar { width: 6px; height: 30px; border-radius: 4px; background: linear-gradient(var(--brand), var(--brand-2)); }
+
+  /* ---------- Pillars ---------- */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .pillar { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; }
+  .pillar .ic { font-size: 34px; }
+  .pillar h3 { margin: 12px 0 6px; font-size: 19px; }
+  .pillar p { margin: 0; color: var(--ink-dim); font-size: 15.5px; }
+
+  .note {
+    margin-top: 16px; background: rgba(244,183,64,.08);
+    border: 1px solid rgba(244,183,64,.3); border-radius: 14px;
+    padding: 16px 20px; color: #ffe6b0; font-size: 15.5px;
+  }
+  .note b { color: #ffd070; }
+
+  /* ---------- Scope banner ---------- */
+  .scope-banner {
+    margin-top: 18px;
+    background: linear-gradient(135deg, rgba(79,140,255,.12), rgba(124,92,255,.10)), var(--card);
+    border: 1.5px solid var(--brand); border-radius: var(--r);
+    padding: 18px 22px;
+  }
+  .scope-chips { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+  .scope-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 16px; font-weight: 700; padding: 7px 16px; border-radius: 12px;
+  }
+  .scope-chip.admin   { background: rgba(79,140,255,.18);  color: #a9c6ff; border: 1px solid rgba(79,140,255,.4); }
+  .scope-chip.central { background: rgba(45,212,167,.16);  color: #6ff0cf; border: 1px solid rgba(45,212,167,.4); }
+  .scope-plus { font-size: 20px; font-weight: 800; color: var(--ink-dim); }
+  .scope-only { font-size: 14px; font-weight: 700; color: var(--bad); background: rgba(255,107,138,.14); border: 1px solid rgba(255,107,138,.35); padding: 4px 12px; border-radius: 999px; }
+  .scope-banner p { margin: 0; font-size: 15px; color: var(--ink-dim); line-height: 1.65; }
+
+  /* ---------- Audience badge (admin / central) ---------- */
+  .aud {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12.5px; font-weight: 700; padding: 3px 11px; border-radius: 8px; white-space: nowrap;
+  }
+  .aud.admin   { background: rgba(79,140,255,.16); color: #a9c6ff; border: 1px solid rgba(79,140,255,.35); }
+  .aud.central { background: rgba(45,212,167,.16); color: #6ff0cf; border: 1px solid rgba(45,212,167,.35); }
+  .aud.both    { background: rgba(124,92,255,.16); color: #c9bcff; border: 1px solid rgba(124,92,255,.35); }
+  .aud.infra   { background: rgba(159,176,214,.14); color: #b9c6e6; border: 1px solid rgba(159,176,214,.3); }
+
+  /* ---------- Filters ---------- */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .chip {
+    cursor: pointer; user-select: none;
+    background: var(--card); border: 1px solid var(--line); color: var(--ink-dim);
+    padding: 8px 17px; border-radius: 999px; font-size: 15px; font-weight: 600;
+    transition: all .18s;
+  }
+  .chip:hover { color: var(--ink); border-color: var(--brand); }
+  .chip.active { background: linear-gradient(var(--brand), var(--brand-2)); color: #fff; border-color: transparent; }
+
+  /* ---------- Theme cards ---------- */
+  .themes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .theme {
+    background: var(--card); border: 1px solid var(--line); border-radius: 20px;
+    overflow: hidden; transition: transform .2s, border-color .2s, opacity .25s;
+  }
+  .theme.hidden { display: none; }
+  .theme:hover { transform: translateY(-4px); border-color: var(--brand); }
+  .theme-head {
+    display: flex; align-items: center; gap: 14px; padding: 18px 20px;
+    cursor: pointer;
+  }
+  .theme-head .tic { font-size: 30px; }
+  .theme-head .tt { flex: 1; }
+  .theme-head .tt h3 { margin: 0; font-size: 19px; }
+  .theme-head .tt .goal { margin: 4px 0 0; font-size: 14px; color: var(--ink-dim); }
+  .mini-ring { position: relative; width: 54px; height: 54px; flex: none; }
+  .mini-ring .mn { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; font-weight: 700; }
+
+  .status-row { display: flex; align-items: center; gap: 8px; padding: 0 20px 14px; flex-wrap: wrap; }
+  .pill { font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 999px; }
+  .pill.deployed { background: rgba(45,212,167,.16); color: #6ff0cf; border: 1px solid rgba(45,212,167,.35); }
+  .pill.dev { background: rgba(88,200,255,.16); color: #a6e3ff; border: 1px solid rgba(88,200,255,.35); }
+  .pill.branch { background: rgba(244,183,64,.16); color: #ffd98a; border: 1px solid rgba(244,183,64,.35); }
+  .pill.revisit { background: rgba(124,92,255,.16); color: #c9bcff; border: 1px solid rgba(124,92,255,.35); }
+
+  /* ---------- Environment badges ---------- */
+  .env {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12.5px; font-weight: 700; padding: 3px 11px; border-radius: 7px;
+    white-space: nowrap; letter-spacing: .2px;
+  }
+  .env::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .env.prod   { background: rgba(45,212,167,.16); color: #4fe0bb; border: 1px solid rgba(45,212,167,.4); }
+  .env.dev    { background: rgba(88,200,255,.16); color: #7ad3ff; border: 1px solid rgba(88,200,255,.4); }
+  .env.stage  { background: rgba(244,183,64,.16); color: #ffce6e; border: 1px solid rgba(244,183,64,.4); }
+  .env.branch { background: rgba(159,176,214,.14); color: #b9c6e6; border: 1px solid rgba(159,176,214,.3); }
+  .env.pr     { background: rgba(124,92,255,.16); color: #c0b0ff; border: 1px solid rgba(124,92,255,.4); }
+
+  .theme-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height .35s ease;
+    border-top: 1px solid transparent;
+  }
+  .theme.open .theme-body { max-height: 900px; border-top-color: var(--line); }
+  .theme-body-inner { padding: 16px 20px 20px; }
+  .impact { font-size: 15.5px; color: #cfe0ff; background: rgba(79,140,255,.07); border-radius: 12px; padding: 14px 16px; margin: 0 0 14px; line-height: 1.65; }
+  ul.deliv { list-style: none; margin: 0; padding: 0; }
+  ul.deliv li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+  ul.deliv li:last-child { border-bottom: none; }
+  .tick { width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 13px; }
+  .tick.done { background: rgba(45,212,167,.2); color: var(--good); }
+  .tick.progress { background: rgba(244,183,64,.2); color: var(--warn); }
+  .deliv .meta { margin-inline-start: auto; font-size: 12.5px; color: var(--ink-dim); white-space: nowrap; display: inline-flex; align-items: center; gap: 7px; }
+  .deliv .meta .dt { opacity: .85; }
+
+  /* ---------- Timeline ---------- */
+  .timeline { position: relative; padding-inline-start: 78px; }
+  .timeline::before {
+    content: ""; position: absolute; top: 8px; bottom: 8px; inset-inline-start: 30px;
+    width: 3px; border-radius: 3px;
+    background: linear-gradient(var(--brand), var(--brand-2));
+  }
+  .tl-item { position: relative; padding: 0 0 22px; }
+  /* date bubble sits centered on the line */
+  .tl-bubble {
+    position: absolute; inset-inline-start: -62px; top: 0;
+    width: 58px; height: 58px; border-radius: 16px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--card); border: 2px solid var(--brand);
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  }
+  .tl-day { font-size: 20px; font-weight: 800; line-height: 1; color: var(--ink); }
+  .tl-month { font-size: 11px; color: var(--ink-dim); margin-top: 3px; }
+  .tl-item.big .tl-bubble { border-color: var(--brand); background: linear-gradient(135deg, rgba(79,140,255,.22), var(--card)); box-shadow: 0 0 0 4px rgba(79,140,255,.16); }
+  .tl-item.world .tl-bubble { border-color: var(--good); background: linear-gradient(135deg, rgba(45,212,167,.22), var(--card)); box-shadow: 0 0 0 4px rgba(45,212,167,.16); }
+  /* connector dot on the spine */
+  .tl-item::before {
+    content: ""; position: absolute; inset-inline-start: -34px; top: 24px;
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--brand); border: 2px solid var(--bg);
+  }
+  .tl-item.world::before { background: var(--good); }
+  .tl-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 15px 18px; display: flex; flex-direction: column; gap: 8px;
+    transition: transform .2s, border-color .2s;
+  }
+  .tl-card:hover { transform: translateX(-4px); border-color: var(--brand); }
+  .tl-item.big .tl-card, .tl-item.world .tl-card { border-width: 1.5px; }
+  .tl-card-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tl-tag {
+    font-size: 12px; font-weight: 800; padding: 4px 11px; border-radius: 8px;
+    background: rgba(124,92,255,.18); color: #c9bcff; white-space: nowrap; letter-spacing: .3px;
+  }
+  .tl-milestone {
+    font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+    background: rgba(244,183,64,.16); color: #ffd070; border: 1px solid rgba(244,183,64,.3);
+  }
+  .tl-card .tl-title { font-size: 16px; font-weight: 600; line-height: 1.5; }
+  .tl-card .tl-where { font-size: 12px; color: var(--ink-dim); display: inline-flex; gap: 5px; flex-wrap: wrap; margin-inline-start: auto; }
+  td .host { font-size: 12px; color: var(--ink-dim); margin-inline-start: 6px; }
+
+  /* ---------- two-col ---------- */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; }
+  .panel h3 { margin: 0 0 16px; font-size: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: start; padding: 11px 6px; border-bottom: 1px solid var(--line); }
+  th { color: var(--ink-dim); font-weight: 600; font-size: 14px; }
+  .ok { color: var(--good); font-weight: 600; }
+  .prog-list { list-style: none; margin: 0; padding: 0; }
+  .prog-list li { padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .prog-list li:last-child { border-bottom: none; }
+  .prog-list .b { font-family: monospace; font-size: 13.5px; color: var(--info); }
+  .prog-list .s { font-size: 13.5px; color: var(--ink-dim); display: block; margin-top: 4px; }
+  .next-list { counter-reset: n; list-style: none; margin: 0; padding: 0; }
+  .next-list li {
+    counter-increment: n; position: relative; padding: 14px 0 14px 0; padding-inline-start: 46px;
+    border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.6;
+  }
+  .next-list li:last-child { border-bottom: none; }
+  .next-list li::before {
+    content: counter(n); position: absolute; inset-inline-start: 0; top: 12px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(var(--brand), var(--brand-2)); color: #fff;
+    display: grid; place-items: center; font-size: 15px; font-weight: 700;
+  }
+
+  footer { margin-top: 50px; text-align: center; color: var(--ink-dim); font-size: 14px; }
+  footer .method { max-width: 820px; margin: 0 auto 14px; opacity: .85; line-height: 1.7; }
+
+  /* ---------- Business impact ---------- */
+  .impact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .impact-card {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: linear-gradient(135deg, rgba(79,140,255,.07), transparent), var(--card);
+    border: 1px solid var(--line); border-radius: var(--r); padding: 20px;
+    transition: transform .2s, border-color .2s;
+  }
+  .impact-card:hover { transform: translateY(-3px); border-color: var(--brand); }
+  .impact-card .ic { font-size: 34px; flex: none; }
+  .impact-card h4 { margin: 0 0 6px; font-size: 18px; }
+  .impact-card p { margin: 0; font-size: 15.5px; color: var(--ink-dim); line-height: 1.65; }
+
+  /* ---------- Chart ---------- */
+  .chart-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; margin-top: 18px; }
+  .chart-card h3 { margin: 0 0 20px; font-size: 19px; }
+  .chart { display: flex; flex-direction: column; gap: 15px; }
+  .bar-row { display: grid; grid-template-columns: 260px 1fr 54px; align-items: center; gap: 14px; }
+  .bar-label { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { height: 16px; background: var(--track); border-radius: 999px; overflow: hidden; }
+  .bar-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--good), var(--brand)); }
+  .bar-val { font-size: 16px; font-weight: 700; text-align: start; color: var(--ink); }
+
+  /* ---------- Risks ---------- */
+  .risks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .risk {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+    padding: 20px; border-inline-start: 5px solid var(--line);
+  }
+  .risk.high   { border-inline-start-color: var(--bad); }
+  .risk.medium { border-inline-start-color: var(--warn); }
+  .risk.low    { border-inline-start-color: var(--info); }
+  .risk-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .risk-top h4 { margin: 0; font-size: 16.5px; line-height: 1.4; }
+  .risk-badge { font-size: 12.5px; font-weight: 700; padding: 4px 11px; border-radius: 7px; white-space: nowrap; }
+  .risk-badge.high   { background: rgba(255,107,138,.16); color: var(--bad); }
+  .risk-badge.medium { background: rgba(244,183,64,.16); color: var(--warn); }
+  .risk-badge.low    { background: rgba(88,200,255,.16); color: var(--info); }
+  .risk p { margin: 0 0 9px; font-size: 14.5px; color: var(--ink-dim); line-height: 1.6; }
+  .risk p:last-child { margin-bottom: 0; }
+  .risk p b { color: var(--ink); }
+
+  /* ---------- print button ---------- */
+  .toolbar { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 14px; }
+  .btn {
+    cursor: pointer; background: var(--card); border: 1px solid var(--line); color: var(--ink);
+    padding: 10px 18px; border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 600;
+    transition: all .18s;
+  }
+  .btn:hover { border-color: var(--brand); }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s, transform .6s; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 860px) {
+    .kpis { grid-template-columns: repeat(3, 1fr); }
+    .pillars, .themes, .cols, .impact-grid, .risks { grid-template-columns: 1fr; }
+    .bar-row { grid-template-columns: 150px 1fr 46px; }
+    .bar-label { font-size: 13px; }
+    .timeline { padding-inline-start: 68px; }
+    .tl-bubble { inset-inline-start: -58px; width: 52px; height: 52px; }
+  }
+  @media print {
+    body { background: #fff; color: #111; }
+    .toolbar, .filters { display: none; }
+    .theme-body { max-height: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    header.hero, .kpi, .pillar, .theme, .panel, .tl-card, .impact-card, .risk, .chart-card { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="toolbar">
+    <button class="btn" id="theme-toggle" onclick="toggleTheme()">🌙 الوضع الفاتح</button>
+    <button class="btn" onclick="window.print()">🖨️ طباعة / حفظ PDF</button>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <span class="badge"><span class="dot"></span> ملخّص تنفيذي تفاعلي</span>
+    <h1 id="h-title">—</h1>
+    <p class="sub" id="h-sub">—</p>
+    <div class="hero-meta">
+      <span>📅 الفترة: <b id="m-period">—</b></span>
+      <span>👤 أُعدّ لـ: <b id="m-for">—</b></span>
+      <span>🗂️ المستودعات: <b id="m-repos">—</b></span>
+    </div>
+
+    <div class="overall">
+      <div class="ring" id="overall-ring"></div>
+      <div class="overall-text">
+        <h2 id="head-line">—</h2>
+        <p id="head-sub">نسبة الإنجاز الإجمالية محسوبة كمتوسّط مرجّح لتقدّم المحاور الثمانية.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- SCOPE BANNER -->
+  <div class="scope-banner" id="scope-banner">
+    <div class="scope-chips">
+      <span class="scope-chip admin">🏛️ لوحة الإدارة العليا</span>
+      <span class="scope-plus">+</span>
+      <span class="scope-chip central">🏥 بوّابة المراكز (Central)</span>
+      <span class="scope-only">فقط</span>
+    </div>
+    <p id="scope-text">—</p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis" id="kpis"></div>
+
+  <!-- PILLARS -->
+  <section class="reveal">
+    <div class="sec-head"><span class="bar"></span><h2>الركائز الاستراتيجية الثلاث</h2></div>
+    <div class="pillars" id="pillars"></div>
+    <div class="note" id="honesty"></div>
+  </section>
+
+  <!-- BUSINESS IMPACT -->
+  <section class="reveal">
+    <div class="sec-head"><span class="bar"></span><h2>ماذا يعني هذا للأعمال</h2></div>
+    <div class="impact-grid" id="bizimpact"></div>
+  </section>
+
+  <!-- THEMES -->
+  <section class="reveal">
+    <div class="sec-head"><span class="bar"></span><h2>المحاور المُنجَزة وحالتها</h2></div>
+    <div class="filters" id="filters"></div>
+    <div class="themes" id="themes"></div>
+    <div class="chart-card">
+      <h3>نسبة الإنجاز لكل محور</h3>
+      <div class="chart" id="chart"></div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="reveal">
+    <div class="sec-head"><span class="bar"></span><h2>الخط الزمني للفترة</h2></div>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- IN PROGRESS + DEPLOY -->
+  <section class="reveal">
+    <div class="cols">
+      <div class="panel">
+        <h3>🔄 قيد الإنجاز / بانتظار الدمج</h3>
+        <ul class="prog-list" id="inprogress"></ul>
+      </div>
+      <div class="panel">
+        <h3>🚀 حالة بيئات النشر</h3>
+        <table>
+          <thead><tr><th>البيئة</th><th>الفرع</th><th>آخر نشر</th><th>الحالة</th></tr></thead>
+          <tbody id="deploys"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISKS -->
+  <section class="reveal">
+    <div class="sec-head"><span class="bar"></span><h2>⚠️ ما يحتاج انتباهًا / قرارًا</h2></div>
+    <div class="risks" id="risks"></div>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <section class="reveal">
+    <div class="sec-head"><span class="bar"></span><h2>الخطوات التالية المقترحة</h2></div>
+    <div class="panel"><ol class="next-list" id="next"></ol></div>
+  </section>
+
+  <footer>
+    <p class="method" id="method"></p>
+    <p>تمّ توليد التقرير في <span id="f-date">—</span> · مصادر البيانات: GitHub PRs، سجل Git، تشغيلات CI/CD، تحليل الفروع.</p>
+  </footer>
+
+</div>
+
+<script>
+const FALLBACK = null; // replaced below if fetch fails
+
+function ringSVG(pct, size, color1, color2, stroke) {
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  const off = c * (1 - pct / 100);
+  const id = 'g' + Math.random().toString(36).slice(2, 7);
+  return `<svg width="${size}" height="${size}">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${color1}"/><stop offset="100%" stop-color="${color2}"/>
+    </linearGradient></defs>
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" stroke="var(--track)" stroke-width="${stroke}" fill="none"/>
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" stroke="url(#${id})" stroke-width="${stroke}"
+      fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}"
+      class="ring-fg" data-off="${off}"/>
+  </svg>`;
+}
+
+function statusLabel(s) {
+  return { deployed: 'في الإنتاج ✅', dev: 'على التطوير', branch: 'على فرع', progress: 'قيد الإنجاز' }[s] || s;
+}
+
+// audience badge: which portal a theme serves (admin / central / both / infra)
+function audBadge(aud) {
+  const a = (aud || '').trim();
+  if (/إدارة.*مركز|مركز.*إدارة|both/i.test(a)) return `<span class="aud both">🏛️🏥 إدارة + مركز</span>`;
+  if (/إدارة|admin/i.test(a))   return `<span class="aud admin">🏛️ لوحة الإدارة</span>`;
+  if (/مركز|central/i.test(a))  return `<span class="aud central">🏥 بوّابة المراكز</span>`;
+  return `<span class="aud infra">⚙️ ${a || 'بنية تحتية'}</span>`;
+}
+
+// turn an environment/location label into a colored badge
+function envBadge(where) {
+  const w = (where || '').trim();
+  let cls = 'branch', label = w;
+  if (/إنتاج|prod/i.test(w))            { cls = 'prod';   label = 'الإنتاج'; }
+  else if (/تطوير|dev/i.test(w))        { cls = 'dev';    label = 'التطوير'; }
+  else if (/تجريب|staging|stage/i.test(w)) { cls = 'stage'; label = 'التجريبي'; }
+  else if (/PR|مفتوح/i.test(w))         { cls = 'pr';     label = w; }
+  else if (/فرع|branch/i.test(w))       { cls = 'branch'; label = 'فرع'; }
+  return `<span class="env ${cls}">${label}</span>`;
+}
+
+function render(d) {
+  // hero
+  document.getElementById('h-title').textContent = d.meta.title;
+  document.getElementById('h-sub').textContent = d.meta.subtitle + ' · ' + d.meta.periodLabel;
+  document.getElementById('m-period').textContent = d.meta.periodLabel + ` (${d.meta.periodDays} يومًا)`;
+  document.getElementById('m-for').textContent = d.meta.preparedFor;
+  document.getElementById('m-repos').textContent = d.meta.repos.join(' · ');
+  document.getElementById('f-date').textContent = d.meta.generatedOn;
+  document.getElementById('head-line').textContent = d.narrative.headline;
+
+  // scope banner (admin + central only)
+  const scopeEl = document.getElementById('scope-text');
+  if (scopeEl && d.scopeNote) scopeEl.textContent = d.scopeNote;
+
+  // overall ring
+  const oc = d.kpis.overallCompletion;
+  const ring = document.getElementById('overall-ring');
+  ring.innerHTML = ringSVG(oc, 130, '#4f8cff', '#7c5cff', 12) +
+    `<div class="num" id="oc-num">0<small>%</small></div>`;
+
+  // kpis
+  const K = d.kpis;
+  const fmt = n => Number(n).toLocaleString('en-US');
+  // build only the KPI cards whose data actually exists (skip undefined fields)
+  const kpiDefs = [
+    ['الإنجاز الإجمالي', K.overallCompletion != null ? K.overallCompletion + '%' : null],
+    ['تحديثات مُنجَزة', K.prsMerged],
+    ['تحديثات مفتوحة', K.prsOpen],
+    ['إجمالي الـ commits', K.commits],
+    ['محاور مُسلَّمة', K.themesDelivered],
+    ['وحدات مبنيّة', K.modulesBuilt],
+    ['أيّام عمل نشطة', K.activeDays],
+    ['وصلت للإنتاج', K.deployedToProd]
+  ].filter(([, v]) => v != null);
+  let kpiHtml = kpiDefs.map(([l, v]) =>
+    `<div class="kpi"><div class="v" data-count="${(''+v).replace(/[^0-9]/g,'')}" data-suffix="${(''+v).replace(/[0-9]/g,'')}">${v}</div><div class="l">${l}</div></div>`
+  ).join('');
+  // lines of code — full-width highlight card (added / removed)
+  if (K.linesAdded != null) {
+    kpiHtml += `<div class="kpi kpi-loc">
+      <div class="v"><span class="loc-add" data-count="${K.linesAdded}" data-prefix="+">+0</span>
+      <span class="loc-sep">/</span>
+      <span class="loc-del" data-count="${K.linesRemoved}" data-prefix="−">−0</span></div>
+      <div class="l">أسطر الكود (مُضاف / محذوف)</div></div>`;
+  }
+  document.getElementById('kpis').innerHTML = kpiHtml;
+
+  // pillars
+  document.getElementById('pillars').innerHTML = d.narrative.pillars.map(p =>
+    `<div class="pillar"><div class="ic">${p.icon}</div><h3>${p.title}</h3><p>${p.text}</p></div>`
+  ).join('');
+  document.getElementById('honesty').innerHTML = '<b>⚖️ </b>' + d.narrative.honestyNote;
+
+  // filters — by audience (admin/central) and status
+  const filters = [
+    { k: 'all', l: 'الكل' },
+    { k: 'aud-admin', l: '🏛️ لوحة الإدارة' },
+    { k: 'aud-central', l: '🏥 بوّابة المراكز' },
+    { k: 'deployed', l: 'في الإنتاج' },
+    { k: 'revisit', l: 'أُعيدت زيارته' }
+  ];
+  document.getElementById('filters').innerHTML = filters.map((f, i) =>
+    `<span class="chip ${i===0?'active':''}" data-f="${f.k}">${f.l}</span>`
+  ).join('');
+
+  // themes
+  document.getElementById('themes').innerHTML = d.themes.map(t => {
+    const deliv = t.deliverables.map(x =>
+      `<li><span class="tick ${x.status}">${x.status==='done'?'✓':'⏳'}</span>
+        <span>${x.name}</span>
+        <span class="meta">${envBadge(x.where)} <span class="dt">${x.date}</span></span></li>`
+    ).join('');
+    const revisitPill = t.revisited
+      ? `<span class="pill revisit" title="أُعيد العمل عليه على مراحل: ${t.revisitDays.join('، ')}">🔁 أُعيدت زيارته (${t.revisitDays.length} مراحل)</span>` : '';
+    // normalize audience for filtering: admin / central / both / infra
+    const a = (t.audience || '');
+    const audKey = /إدارة.*مركز|مركز.*إدارة|both/i.test(a) ? 'both'
+      : /إدارة|admin/i.test(a) ? 'admin'
+      : /مركز|central/i.test(a) ? 'central' : 'infra';
+    return `<div class="theme" data-status="${t.status}" data-revisit="${t.revisited}" data-aud="${audKey}">
+      <div class="theme-head" onclick="this.parentElement.classList.toggle('open')">
+        <span class="tic">${t.icon}</span>
+        <div class="tt"><h3>${t.title}</h3><p class="goal">${t.goal}</p></div>
+        <div class="mini-ring">${ringSVG(t.completion, 54, '#2dd4a7', '#4f8cff', 6)}<div class="mn">${t.completion}%</div></div>
+      </div>
+      <div class="status-row">
+        ${audBadge(t.audience)}
+        <span class="pill ${t.status}">${statusLabel(t.status)}</span>
+        ${revisitPill}
+      </div>
+      <div class="theme-body"><div class="theme-body-inner">
+        <p class="impact"><b>الأثر:</b> ${t.impact}</p>
+        <ul class="deliv">${deliv}</ul>
+      </div></div>
+    </div>`;
+  }).join('');
+
+  // timeline — newest first (descending)
+  document.getElementById('timeline').innerHTML = [...d.timeline].reverse().map(t => {
+    const cls = t.tag === 'BIG' ? 'big' : (t.tag === 'WORLD' ? 'world' : '');
+    const milestone = (t.tag === 'BIG' || t.tag === 'WORLD')
+      ? `<span class="tl-milestone">${t.tag === 'BIG' ? '★ محطّة رئيسية' : '🌍 محطّة رئيسية'}</span>` : '';
+    const [day, ...rest] = t.date.split(' ');
+    const month = rest.join(' ');
+    return `<div class="tl-item ${cls}">
+      <div class="tl-bubble"><span class="tl-day">${day}</span><span class="tl-month">${month}</span></div>
+      <div class="tl-card">
+        <div class="tl-card-head">
+          <span class="tl-tag">${t.tag}</span>${milestone}
+          <span class="tl-where">${t.where.split('/').map(envBadge).join('')}</span>
+        </div>
+        <span class="tl-title">${t.title}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // in progress
+  document.getElementById('inprogress').innerHTML = d.inProgress.map(p =>
+    `<li><span class="b">${p.branch}</span> — ${p.desc}<span class="s">📌 ${p.status}</span></li>`
+  ).join('');
+
+  // deploys
+  document.getElementById('deploys').innerHTML = d.deployments.map(x => {
+    const m = x.env.match(/^(.*?)\s*\((.+)\)\s*$/);
+    const envCell = m ? `${envBadge(m[1])} <span class="host">${m[2]}</span>` : envBadge(x.env);
+    return `<tr><td>${envCell}</td><td><code>${x.branch}</code></td><td>${x.lastDeploy}</td><td class="ok">● ${x.status}</td></tr>`;
+  }).join('');
+
+  // next
+  document.getElementById('next').innerHTML = d.nextSteps.map(s => `<li>${s}</li>`).join('');
+
+  // business impact
+  if (d.businessImpact) {
+    document.getElementById('bizimpact').innerHTML = d.businessImpact.map(b =>
+      `<div class="impact-card"><div class="ic">${b.icon}</div>
+        <div><h4>${b.title}</h4><p>${b.text}</p></div></div>`
+    ).join('');
+  }
+
+  // risks
+  if (d.risks) {
+    const lvl = { high: 'مرتفع', medium: 'متوسّط', low: 'منخفض' };
+    document.getElementById('risks').innerHTML = d.risks.map(r =>
+      `<div class="risk ${r.level}">
+        <div class="risk-top"><span class="risk-badge ${r.level}">${lvl[r.level] || r.level}</span>
+          <h4>${r.title}</h4></div>
+        <p class="risk-impact"><b>الأثر:</b> ${r.impact}</p>
+        <p class="risk-action"><b>المطلوب:</b> ${r.action}</p>
+      </div>`
+    ).join('');
+  }
+
+  // chart — themes by completion (pure SVG bars)
+  if (d.themes) {
+    const sorted = [...d.themes].sort((a, b) => b.completion - a.completion);
+    document.getElementById('chart').innerHTML = sorted.map(t =>
+      `<div class="bar-row">
+        <span class="bar-label">${t.icon} ${t.title}</span>
+        <span class="bar-track"><span class="bar-fill" data-w="${t.completion}" style="width:${t.completion}%"></span></span>
+        <span class="bar-val">${t.completion}%</span>
+      </div>`
+    ).join('');
+  }
+
+  // methodology footnote
+  if (d.methodology) document.getElementById('method').innerHTML = 'ℹ️ منهجية: ' + d.methodology;
+
+  // animate after paint
+  requestAnimationFrame(() => {
+    setTimeout(animate, 60);
+  });
+}
+
+function animate() {
+  // draw chart bars — reset to 0 then transition to target (degrades gracefully if no JS / print)
+  document.querySelectorAll('.bar-fill').forEach((b, i) => {
+    b.style.width = '0%';
+    setTimeout(() => {
+      b.style.transition = 'width 1s cubic-bezier(.3,1,.4,1)';
+      b.style.width = b.dataset.w + '%';
+    }, 80 + i * 70);
+  });
+  // draw rings
+  document.querySelectorAll('.ring-fg').forEach(c => {
+    c.style.transition = 'stroke-dashoffset 1.3s cubic-bezier(.3,1,.4,1)';
+    c.style.strokeDashoffset = c.dataset.off;
+  });
+  // count up overall + kpis
+  const grp = n => Number(n).toLocaleString('en-US');
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    if (!target) return;
+    let cur = 0; const step = Math.max(1, Math.ceil(target / 45));
+    const iv = setInterval(() => {
+      cur += step; if (cur >= target) { cur = target; clearInterval(iv); }
+      el.textContent = prefix + grp(cur) + suffix;
+    }, 22);
+  });
+  // overall count-up
+  const ocNum = document.getElementById('oc-num');
+  const oc = window.__oc || 0;
+  let cur = 0; const iv = setInterval(() => {
+    cur += 2; if (cur >= oc) { cur = oc; clearInterval(iv); }
+    if (ocNum) ocNum.innerHTML = cur + '<small>%</small>';
+  }, 22);
+}
+
+// filters
+document.addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  const f = chip.dataset.f;
+  document.querySelectorAll('.theme').forEach(t => {
+    let show;
+    if (f === 'all') show = true;
+    else if (f === 'revisit') show = t.dataset.revisit === 'true';
+    else if (f === 'aud-admin') show = t.dataset.aud === 'admin' || t.dataset.aud === 'both';
+    else if (f === 'aud-central') show = t.dataset.aud === 'central' || t.dataset.aud === 'both';
+    else show = t.dataset.status === f;
+    t.classList.toggle('hidden', !show);
+  });
+});
+
+// scroll reveal
+const io = new IntersectionObserver(es => {
+  es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+}, { threshold: .12 });
+
+function boot(d) {
+  window.__oc = d.kpis.overallCompletion;
+  render(d);
+  document.querySelectorAll('.reveal').forEach(s => io.observe(s));
+}
+
+// light / dark theme toggle (persisted)
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = t === 'light' ? '🌚 الوضع الداكن' : '🌙 الوضع الفاتح';
+}
+function toggleTheme() {
+  const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  try { localStorage.setItem('sij-report-theme', next); } catch (e) {}
+  applyTheme(next);
+}
+(function () {
+  let saved = 'dark';
+  try { saved = localStorage.getItem('sij-report-theme') || 'dark'; } catch (e) {}
+  applyTheme(saved);
+})();
+
+fetch('frontend-data.json')
+  .then(r => { if (!r.ok) throw new Error('http'); return r.json(); })
+  .then(boot)
+  .catch(() => {
+    // file:// fallback — data embedded so the page works on double-click
+    if (window.__EMBED__) boot(window.__EMBED__);
+    else {
+      document.getElementById('h-title').textContent = 'تعذّر تحميل البيانات';
+      document.getElementById('h-sub').textContent = 'افتح الصفحة عبر خادم محلّي (مثلاً: python3 -m http.server) لقراءة report-data.json، أو استخدم النسخة المضمّنة.';
+    }
+  });
+</script>
+<!-- EMBED:START — keeps the page working when opened directly via file:// (double-click) -->
+<script>
+window.__EMBED__ = {
+  "meta": {
+    "title": "تقرير تطوير واجهة سِجِلاتي الجديدة",
+    "subtitle": "لوحة الإدارة وبوّابة المراكز فقط — ملخّص تنفيذي تفاعلي",
+    "periodLabel": "14 أبريل – 13 يونيو 2026",
+    "periodDays": 60,
+    "preparedFor": "المدير التنفيذي",
+    "generatedOn": "2026-06-14",
+    "repos": ["sijilaty-frontend"]
+  },
+  "scopeNote": "هذا التقرير يخصّ حصريًا الواجهة الأمامية الجديدة المخصّصة لـ (1) لوحة الإدارة العليا — للمشرفين والمدراء، و(2) بوّابة المراكز (Central) — للعملاء المشتركين. لا يشمل تطبيق الأطبّاء/المستخدمين النهائيين على الجوال، ولا واجهة التوقيع العامة.",
+  "kpis": {
+    "overallCompletion": 82,
+    "prsMerged": 10,
+    "prsOpen": 0,
+    "commits": 60,
+    "linesAdded": 46073,
+    "linesRemoved": 18827,
+    "activeDays": 13,
+    "themesDelivered": 8,
+    "modulesBuilt": 30
+  },
+  "narrative": {
+    "headline": "خلال 60 يومًا أُعيد بناء الواجهة الأمامية من الصفر — لوحة الإدارة وبوّابة المراكز — على نظام تصميم موحّد، وربطها بواجهة V2، وإنجاز المراحل 1–3 من خارطة الميزات.",
+    "pillars": [
+      {
+        "icon": "🏛️",
+        "title": "لوحة الإدارة العليا",
+        "text": "للمشرفين والمدراء — إدارة كاملة للأطبّاء والمراكز والمراجعين والجلسات والباقات والمحتوى مع التقارير والتدقيق."
+      },
+      {
+        "icon": "🏥",
+        "title": "بوّابة المراكز (Central)",
+        "text": "للعملاء المشتركين — الاشتراكات، مفاتيح الـ API، الجلسات، تنزيل العقود، وإعدادات المركز."
+      },
+      {
+        "icon": "🎨",
+        "title": "نظام التصميم والأساسات",
+        "text": "إعادة بناء كاملة على HeroUI + Tailwind v4، دعم العربية/الإنجليزية، الوضع الداكن، وإمكانية الوصول."
+      }
+    ],
+    "honestyNote": "ملاحظة منهجية: جرت إعادة البناء على ست مراحل متتابعة (Phases) خلال فترتين مكثّفتين (مايو ثم يونيو)، مع جولات مواءمة متعدّدة مع نظام التصميم وربط الـ API. دُمجت هنا في محاور موحّدة حسب الوظيفة بدل سردها كمراحل، مع توضيح نسبة الإنجاز والجمهور المستهدف (إدارة/مركز) لكل محور."
+  },
+  "themes": [
+    {
+      "id": "foundation",
+      "icon": "🧱",
+      "title": "إعادة البناء والأساسات التقنية",
+      "audience": "البنية التحتية",
+      "goal": "هجرة الواجهة من Refine/Ant Design إلى بنية حديثة مخصّصة قابلة للصيانة والتوسّع.",
+      "completion": 100,
+      "status": "deployed",
+      "revisited": true,
+      "revisitDays": ["18 مايو", "20 مايو", "25 مايو"],
+      "impact": "أساس تقني حديث وموحّد (React Router + React Query + Zustand) يجعل بناء الميزات أسرع ويقلّل الديون التقنية، مع طبقة استعلامات وحالات تحميل وأخطاء موحّدة.",
+      "deliverables": [
+        { "name": "الهجرة من Refine/Ant إلى React Router مخصّص", "status": "done", "where": "الإنتاج", "date": "14 أبريل" },
+        { "name": "طبقة React Query + سياق المصادقة", "status": "done", "where": "الإنتاج", "date": "20 مايو" },
+        { "name": "الهجرة إلى Tailwind v4 + HeroUI v3", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "بنية الاختبارات (Vitest + Playwright)", "status": "done", "where": "الإنتاج", "date": "14 أبريل" }
+      ]
+    },
+    {
+      "id": "design-system",
+      "icon": "🎨",
+      "title": "نظام التصميم والهوية الموحّدة",
+      "audience": "إدارة + مركز",
+      "goal": "توحيد المظهر عبر اللوحتين على نظام تصميم مشترك مع لوحة ألوان دلالية.",
+      "completion": 100,
+      "status": "deployed",
+      "revisited": true,
+      "revisitDays": ["24 مايو", "25 مايو", "11 يونيو", "12 يونيو"],
+      "impact": "تجربة بصريّة متّسقة واحترافيّة عبر لوحة الإدارة وبوّابة المراكز، بهوية سِجِلاتي الموحّدة — يرفع الثقة لدى العملاء ويقلّل الالتباس.",
+      "deliverables": [
+        { "name": "مواءمة اللوحات مع نظام التصميم المشترك", "status": "done", "where": "الإنتاج", "date": "24 مايو" },
+        { "name": "لوحة ألوان دلالية + إعادة هوية عربية لـ \"سِجِلاتي\"", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "إعادة تصميم 2030 (bento grid) للوحات", "status": "done", "where": "الإنتاج", "date": "12 يونيو" },
+        { "name": "تثبيت ألوان العلامة ورموز الهوية", "status": "done", "where": "الإنتاج", "date": "25 مايو" }
+      ]
+    },
+    {
+      "id": "admin-core",
+      "icon": "🏛️",
+      "title": "لوحة الإدارة — الوحدات الأساسية (P0/P1)",
+      "audience": "إدارة",
+      "goal": "إدارة كاملة للكيانات الأساسية: الأطبّاء، المراكز، المراجعون، الجلسات.",
+      "completion": 95,
+      "status": "deployed",
+      "revisited": true,
+      "revisitDays": ["19 مايو", "24 مايو", "25 مايو"],
+      "impact": "يستطيع المشرف إدارة كل الكيانات الأساسية (إنشاء/تعديل/عرض) مباشرة من اللوحة، مربوطة بواجهة V2 الحقيقية بدل البيانات الوهمية.",
+      "deliverables": [
+        { "name": "وحدة الأطبّاء (قائمة، ملف، إنشاء، تعديل)", "status": "done", "where": "الإنتاج", "date": "19 مايو" },
+        { "name": "صفحة المراكز (Centrals) + نافذة الإدارة", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "إدارة المراجعين والجلسات (CRUD)", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "ربط وحدات P0/P1 بنقاط V2 الحقيقية", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "مراقبة اكتمال ملف الطبيب", "status": "done", "where": "الإنتاج", "date": "13 يونيو" }
+      ]
+    },
+    {
+      "id": "admin-p2",
+      "icon": "🗂️",
+      "title": "لوحة الإدارة — وحدات التفاعل والمحتوى والإعدادات (P2)",
+      "audience": "إدارة",
+      "goal": "وحدات إدارة المحتوى (CMS)، التفاعل، والإعدادات: الباقات، الصفحات، الأسئلة الشائعة، المشرفون.",
+      "completion": 90,
+      "status": "deployed",
+      "revisited": true,
+      "revisitDays": ["25 مايو", "26 مايو"],
+      "impact": "تحكّم إداري كامل في المحتوى والإعدادات (الباقات، الصفحات، الأسئلة الشائعة، المشرفون، الإشعارات) — أُضيفت للشريط الجانبي ووُفّقت مع أشكال الـ API الحقيقية.",
+      "deliverables": [
+        { "name": "وحدات التفاعل والـ CMS والإعدادات (P2)", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "ربط صفحات P2 في الشريط الجانبي", "status": "done", "where": "الإنتاج", "date": "26 مايو" },
+        { "name": "مواءمة P2 مع أشكال الـ API الحقيقية", "status": "done", "where": "الإنتاج", "date": "26 مايو" },
+        { "name": "موافقات تغييرات الحقول + سجلّ التدقيق", "status": "done", "where": "الإنتاج", "date": "13 يونيو" }
+      ]
+    },
+    {
+      "id": "admin-reports",
+      "icon": "📊",
+      "title": "لوحة الإدارة — التقارير والتصدير",
+      "audience": "إدارة",
+      "goal": "تقارير وتحليلات إداريّة ومركز تصدير بيانات (المرحلة 1).",
+      "completion": 85,
+      "status": "deployed",
+      "revisited": false,
+      "revisitDays": ["13 يونيو"],
+      "impact": "تمنح الإدارة رؤية تحليليّة ومركز تصدير موحّد للبيانات (أطبّاء، جلسات، عقود) — أساس اتّخاذ القرار ومتابعة الأداء.",
+      "deliverables": [
+        { "name": "تقارير وتحليلات الإدارة", "status": "done", "where": "الإنتاج", "date": "13 يونيو" },
+        { "name": "مركز تصدير البيانات", "status": "done", "where": "الإنتاج", "date": "13 يونيو" },
+        { "name": "جرس الإشعارات الحيّة", "status": "done", "where": "الإنتاج", "date": "13 يونيو" }
+      ]
+    },
+    {
+      "id": "central-portal",
+      "icon": "🏥",
+      "title": "بوّابة المراكز (Central) — للعملاء المشتركين",
+      "audience": "مركز",
+      "goal": "بوّابة كاملة للمراكز: الاشتراكات، مفاتيح الـ API، الجلسات، تنزيل العقود، توثيق الـ API، الإعدادات.",
+      "completion": 85,
+      "status": "deployed",
+      "revisited": true,
+      "revisitDays": ["19 مايو", "25 مايو", "27 مايو"],
+      "impact": "يحصل العميل (المركز) على بوّابة تشغيليّة كاملة: إدارة اشتراكه، مفاتيح التكامل، جلساته، تنزيل عقوده، وإعدادات مركزه — بتصميم 2030 المحدّث.",
+      "deliverables": [
+        { "name": "لوحة المراكز + إدارة المراكز", "status": "done", "where": "الإنتاج", "date": "19 مايو" },
+        { "name": "إدارة الاشتراك ومفاتيح الـ API", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "إدارة الجلسات + تنزيل العقود (ZIP/PDF)", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "إعدادات المركز + سجلّ النشاطات", "status": "done", "where": "الإنتاج", "date": "13 يونيو" },
+        { "name": "إعادة تصميم بوّابة المركز (Handoff-2 2030)", "status": "done", "where": "الإنتاج", "date": "27 مايو" }
+      ]
+    },
+    {
+      "id": "i18n-a11y",
+      "icon": "🌐",
+      "title": "التعدّد اللغوي وإمكانية الوصول والوضع الداكن",
+      "audience": "إدارة + مركز",
+      "goal": "دعم كامل للعربية/الإنجليزية (RTL/LTR)، الوضع الداكن، ومعايير الوصول WCAG 2.1 AA.",
+      "completion": 95,
+      "status": "deployed",
+      "revisited": true,
+      "revisitDays": ["20 مايو", "23 مايو", "25 مايو", "11 يونيو"],
+      "impact": "الواجهة تعمل بالكامل بالعربية والإنجليزية مع اتّجاه صحيح، ووضع داكن متقن، وتوافق مع معايير الوصول — يوسّع قاعدة المستخدمين ويلبّي متطلّبات الجودة.",
+      "deliverables": [
+        { "name": "ترحيل i18n الكامل لكل صفحات الميزات", "status": "done", "where": "الإنتاج", "date": "23 مايو" },
+        { "name": "تكافؤ ترجمة عربي/إنجليزي للإدارة والعقود", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "إصلاح RTL/LTR ودعم الثيم الفاتح/الداكن", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "وضع داكن متقن + تحسينات إمكانية الوصول", "status": "done", "where": "الإنتاج", "date": "11 يونيو" }
+      ]
+    },
+    {
+      "id": "perf-ux",
+      "icon": "⚡",
+      "title": "الأداء وتلميع تجربة الاستخدام",
+      "audience": "إدارة + مركز",
+      "goal": "تحسين الأداء (تحميل كسول للمخطّطات) ولمسات تجربة الاستخدام.",
+      "completion": 80,
+      "status": "deployed",
+      "revisited": true,
+      "revisitDays": ["25 مايو", "11 يونيو", "12 يونيو"],
+      "impact": "تحميل أسرع للوحات عبر تجزئة حِزم المخطّطات، ولمسات تجربة (مؤثّرات صوتيّة اختياريّة، مسارات تنقّل ديناميكيّة) ترفع جودة الإحساس بالمنتج.",
+      "deliverables": [
+        { "name": "تحميل كسول لحِزم مخطّطات اللوحة", "status": "done", "where": "الإنتاج", "date": "25 مايو" },
+        { "name": "مسارات تنقّل ديناميكيّة (breadcrumbs)", "status": "done", "where": "الإنتاج", "date": "20 مايو" },
+        { "name": "مؤثّرات صوتيّة للواجهة مع مفتاح تحكّم", "status": "done", "where": "الإنتاج", "date": "11 يونيو" },
+        { "name": "تنظيف الكود الميّت ولمسات تلميع", "status": "done", "where": "الإنتاج", "date": "12 يونيو" }
+      ]
+    }
+  ],
+  "timeline": [
+    { "date": "14 أبريل", "tag": "FOUND", "title": "الأساسات — معالجة الأخطاء، حالات التحميل، الوصول (WCAG)، بنية الاختبارات", "where": "الإنتاج" },
+    { "date": "17 مايو", "tag": "DESIGN", "title": "استلام تسليم التصميم (Claude design handoff)", "where": "فرع" },
+    { "date": "18 مايو", "tag": "BIG", "title": "بدء إعادة البناء — هيكلة الواجهة الجديدة من التصميم", "where": "الإنتاج" },
+    { "date": "19 مايو", "tag": "ADMIN", "title": "وحدات الأطبّاء + الجلسات + المراجعين + لوحة الإدارة (المراحل 2–4)", "where": "الإنتاج" },
+    { "date": "20 مايو", "tag": "FOUND", "title": "React Query + سياق المصادقة + i18n (المرحلة 5)", "where": "الإنتاج" },
+    { "date": "23 مايو", "tag": "I18N", "title": "اكتمال ترحيل التعدّد اللغوي لكل الصفحات (المرحلة 6)", "where": "الإنتاج" },
+    { "date": "24 مايو", "tag": "DESIGN", "title": "مواءمة اللوحات والدخول مع نظام التصميم المشترك", "where": "الإنتاج" },
+    { "date": "25 مايو", "tag": "BIG", "title": "يوم الإنجاز الكبير (21 commit) — HeroUI، إزالة البيانات الوهمية، ربط V2، الثيم الدلالي، CRUD", "where": "الإنتاج" },
+    { "date": "26 مايو", "tag": "ADMIN", "title": "ربط وحدات P2 في الشريط الجانبي + مواءمة أشكال الـ API", "where": "الإنتاج" },
+    { "date": "27 مايو", "tag": "CENTRAL", "title": "إعادة تصميم بوّابة المركز (Handoff-2 2030)", "where": "الإنتاج" },
+    { "date": "11 يونيو", "tag": "UX", "title": "مؤثّرات صوتيّة + وضع داكن متقن + تحسينات الوصول", "where": "الإنتاج" },
+    { "date": "12 يونيو", "tag": "DESIGN", "title": "إكمال تصميم 2030 — إصلاح bento grid والمرشّحات والتلميع", "where": "الإنتاج" },
+    { "date": "13 يونيو", "tag": "BIG", "title": "تنفيذ خارطة الميزات (المراحل 1–3) — تقارير، تصدير، تدقيق، إشعارات", "where": "الإنتاج" }
+  ],
+  "inProgress": [
+    { "branch": "docs/FRONTEND-FEATURE-ROADMAP", "desc": "خارطة ميزات المراحل 1–3 موثّقة بالكامل (مرجع التنفيذ)", "status": "مكتملة كمرجع", "pr": null },
+    { "branch": "phase-2-ux", "desc": "بحث شامل (Cmd+K)، شارة انتحال الهوية — ضمن المرحلة 2", "status": "مخطّط في الخارطة", "pr": null },
+    { "branch": "phase-3-capabilities", "desc": "محرّر محتوى متعدّد اللغات، عارض PDF مدمج، تفضيلات الإشعارات", "status": "مخطّط في الخارطة", "pr": null }
+  ],
+  "deployments": [
+    { "env": "التطوير (sij.test API)", "branch": "main", "lastDeploy": "13 يونيو 2026", "status": "سليم" }
+  ],
+  "nextSteps": [
+    "إكمال بنود المرحلة 2 المتبقّية: البحث الشامل (Cmd+K) وشارة انتحال الهوية.",
+    "تنفيذ قدرات المرحلة 3: محرّر المحتوى متعدّد اللغات وعارض الـ PDF المدمج وتفضيلات الإشعارات.",
+    "إغلاق نقاط V2 الناقصة في الخلفية (انظر backend-integration-readiness) لإكمال ربط بعض شاشات الإدارة/المركز.",
+    "ربط الواجهة الجديدة ببيئة إنتاج فعليّة وجدولة نشر بموافقة المالك."
+  ],
+  "businessImpact": [
+    {
+      "icon": "🏛️",
+      "title": "تشغيل إداري متكامل",
+      "text": "لوحة إدارة حديثة تغطّي كل الكيانات (أطبّاء، مراكز، مراجعون، جلسات، محتوى) — تقلّل الاعتماد على لوحة Laravel القديمة وتسرّع عمل فريق العمليات."
+    },
+    {
+      "icon": "🏥",
+      "title": "بوّابة احترافيّة للعملاء (المراكز)",
+      "text": "بوّابة Central متكاملة ترفع جودة تجربة العميل المشترك: اشتراكات، تكامل API، عقود، وجلسات — عامل تمييز تجاري وأداة احتفاظ بالعملاء."
+    },
+    {
+      "icon": "🌐",
+      "title": "جاهزيّة لغويّة وإقليميّة",
+      "text": "دعم عربي/إنجليزي كامل ووضع داكن وإمكانية وصول — يوسّع قاعدة المستخدمين ويدعم التوسّع الإقليمي للمنصّة."
+    },
+    {
+      "icon": "⚙️",
+      "title": "أساس تقني قابل للتوسّع",
+      "text": "بنية حديثة موحّدة تقلّل تكلفة الصيانة وتسرّع بناء الميزات المستقبليّة، مع تغطية اختبارات (Vitest + Playwright)."
+    }
+  ],
+  "risks": [
+    {
+      "level": "high",
+      "title": "اعتماد على نقاط V2 ناقصة في الخلفية",
+      "impact": "بعض شاشات الإدارة/المركز تنتظر نقاط API لم تُبنَ بعد في الخلفية (موثّقة في backend-integration-readiness)، ما قد يؤخّر اكتمال بعض التدفّقات.",
+      "action": "تنسيق أولويّات نقاط V2 الناقصة مع فريق الخلفية وجدولتها."
+    },
+    {
+      "level": "medium",
+      "title": "لم تُنشر بعد على بيئة إنتاج فعليّة",
+      "impact": "الواجهة تعمل وتُختبر مقابل sij.test، لكنها لم تُربط ببيئة إنتاج مستقلّة بعد — يلزم إعداد نشر ومراجعة قبل الإطلاق.",
+      "action": "إعداد خط نشر للواجهة وجدولة إطلاق بموافقة المالك."
+    },
+    {
+      "level": "medium",
+      "title": "المرحلتان 2 و3 من الخارطة غير مكتملتين",
+      "impact": "ميزات مثل البحث الشامل، انتحال الهوية، محرّر المحتوى، وعارض الـ PDF مخطّطة وموثّقة لكنها لم تُنفّذ بالكامل.",
+      "action": "تخصيص جدول تنفيذ للمرحلتين 2 و3 حسب أولويّة العمل."
+    }
+  ],
+  "methodology": "نسبة الإنجاز الإجمالية (82%) متوسّط مرجّح لتقدّم المحاور الثمانية، وتشمل عملاً مكتملاً ومدموجًا في main لكنه لم يُنشر على إنتاج مستقلّ بعد. أرقام أسطر الكود محسوبة من سجل Git خلال الفترة باستثناء ملفّات التبعيّات والبناء (lock/dist/node_modules). النطاق محصور في لوحة الإدارة وبوّابة المراكز فقط — دون تطبيق الأطبّاء أو واجهة التوقيع العامة."
+};
+</script>
+<!-- EMBED:END -->
+</body>
+</html>

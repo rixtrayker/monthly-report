@@ -14,9 +14,14 @@
 
 ## الملفّات
 
-- `index.html` + `report-data.json` — التقرير الشهري (الخلفية)
-- `frontend.html` + `frontend-data.json` — تقرير الواجهة الجديدة (إدارة + مراكز فقط)
-- `build.sh` — يُعيد تضمين البيانات داخل كل صفحة (يعالج التقريرين، انظر أدناه)
+| التقرير | الصفحة (HTML) | البيانات (JSON) |
+|---|---|---|
+| الشهري — الخلفية | `index.html` | `report-data.json` |
+| الواجهة الجديدة — إدارة + مراكز | `frontend.html` | `frontend-data.json` |
+
+ملفّات مشتركة:
+
+- `build.sh` — يُعيد تضمين البيانات داخل كل صفحة (يعالج التقريرين معًا، انظر أدناه)
 - `PROMPT.md` — وصفة/برومبت قابل لإعادة الاستخدام لتوليد تقرير بنفس الأسلوب لأي مشروع
 - `2026-05-15-to-2026-06-14-progress-report.md` — النسخة النصّية للتقرير الشهري
 
@@ -24,39 +29,45 @@
 
 ---
 
-## How to update the report going forward
+## How to update a report going forward
 
-> **Edit `report-data.json`, never edit the numbers inside `index.html` by hand.**
-> The HTML reads its data from the JSON; the build step keeps the two in sync.
+> **Edit the report's `*-data.json`, never edit the numbers inside the HTML by hand.**
+> Each page reads its data from its JSON; the build step keeps the two in sync.
+>
+> - Monthly (backend): edit `report-data.json` → page `index.html`
+> - Frontend (admin + central): edit `frontend-data.json` → page `frontend.html`
 
 ### Why a build step exists
 
-`index.html` consumes the report data **two ways**:
+Each page consumes its data **two ways**:
 
-1. **`fetch('report-data.json')`** — used when the page is served over HTTP
+1. **`fetch('<report>-data.json')`** — used when the page is served over HTTP
    (this is what GitHub Pages does).
-2. **`window.__EMBED__`** — a copy of the JSON baked into `index.html` as a
-   fallback, so the page still renders when opened directly from disk
-   (`file://`, double-click) where `fetch` is blocked.
+2. **`window.__EMBED__`** — a copy of the JSON baked into the HTML as a fallback,
+   so the page still renders when opened directly from disk (`file://`,
+   double-click) where `fetch` is blocked.
 
-If you change `report-data.json` but forget to refresh the embedded copy, the
-live site (which fetches) updates, but the standalone file shows **stale
-numbers**. `build.sh` re-syncs the embedded copy so both paths always match.
+If you change the JSON but forget to refresh the embedded copy, the live site
+(which fetches) updates, but the standalone file shows **stale numbers**.
+`build.sh` re-syncs the embedded copy for **both reports** so all paths match.
 
 ### The workflow
 
 ```bash
 cd /Users/amr/dev/sijilati/monthly-report
 
-# 1. Edit the data (KPIs, themes, timeline, risks, …)
-$EDITOR report-data.json
+# 1. Edit the data of whichever report you're updating
+$EDITOR report-data.json        # monthly / backend
+#   or
+$EDITOR frontend-data.json      # frontend (admin + central)
 
-# 2. Re-embed the JSON into index.html (keeps the file:// fallback in sync)
+# 2. Re-embed JSON into the HTML pages (handles BOTH reports; safe no-op for
+#    the one you didn't change)
 ./build.sh
 
-# 3. (optional) Preview locally — open index.html in a browser,
-#    or serve it so fetch() works exactly like Pages:
-python3 -m http.server 8000   # then visit http://localhost:8000
+# 3. (optional) Preview locally — open the HTML in a browser, or serve it so
+#    fetch() works exactly like Pages:
+python3 -m http.server 8000     # then visit http://localhost:8000/ (or /frontend.html)
 
 # 4. Commit + push — GitHub Pages redeploys automatically (~1–2 min)
 git add -A
@@ -64,10 +75,10 @@ git commit -m "update report"
 git push
 ```
 
-### Verify the embed is in sync (CI-friendly)
+### Verify the embeds are in sync (CI-friendly)
 
 ```bash
-./build.sh --check   # exits 0 if in sync, 1 if it drifted (writes nothing)
+./build.sh --check   # exits 0 if BOTH in sync, 1 if either drifted (writes nothing)
 ```
 
 ### After pushing
@@ -75,10 +86,17 @@ git push
 - Pages rebuilds in ~1–2 minutes. Check status:
   `gh api repos/rixtrayker/monthly-report/pages/builds/latest --jq .status`
   (look for `built`).
-- If the live URL still shows old content, it's CDN caching —
+- If a live URL still shows old content, it's CDN caching —
   hard-refresh with **Cmd/Ctrl + Shift + R**.
+
+### Adding a new report
+
+1. Create `<name>-data.json` and a `<name>.html` page (copy an existing pair).
+2. Point the page's `fetch('…')` at the new JSON filename.
+3. Add the `"<name>-data.json:<name>.html"` pair to the `PAIRS` array in `build.sh`.
+4. Run `./build.sh`, then commit + push. See `PROMPT.md` for the full report recipe.
 
 ### Editing the page design (not the data)
 
-CSS/JS/layout live in `index.html`. Edit those directly — they aren't generated.
+CSS/JS/layout live in the HTML files. Edit those directly — they aren't generated.
 Only the `window.__EMBED__ = { … }` block is managed by `build.sh`; leave it alone.

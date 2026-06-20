@@ -19,15 +19,33 @@ AUTHORS=(--author='rixtrayker@hotmail.com'
          --author='7710590+rixtrayker')
 
 # Map local dir -> canonical project / github slug.
+# Projects to leave out of the report entirely (tooling / meta repos).
+EXCLUDE=(
+  "open-gitagent/gitagent"
+  "rixtrayker/monthly-report"
+  "Sijilaty/pdf-generator"
+)
+
 slug_for() {
   local dir="$1"
-  local url
+  local url slug
   url="$(git -C "$dir" remote get-url origin 2>/dev/null || true)"
   if [ -n "$url" ]; then
-    echo "$url" | sed -E 's#(git@|https://)[^:/]+[:/]##; s#\.git$##'
+    slug="$(echo "$url" | sed -E 's#(git@|https://)[^:/]+[:/]##; s#\.git$##')"
   else
-    echo "(local) $(basename "$dir")"
+    slug="(local) $(basename "$dir")"
   fi
+  # Display-name overrides
+  case "$slug" in
+    rixtrayker/ehr-workspace) slug="ehr-workspace (local)" ;;
+  esac
+  echo "$slug"
+}
+
+is_excluded() {
+  local p="$1"
+  for x in "${EXCLUDE[@]}"; do [ "$p" = "$x" ] && return 0; done
+  return 1
 }
 
 echo "Extracting from $BASE  window $SINCE .. $UNTIL" >&2
@@ -39,6 +57,7 @@ trap 'rm -f "$RAW"' EXIT
 for d in "$BASE"/*/; do
   [ -d "$d/.git" ] || continue
   project="$(slug_for "$d")"
+  if is_excluded "$project"; then echo "  skip (excluded): $project" >&2; continue; fi
   bn="$(basename "$d")"
   # numstat per commit. Format line: @@<hash>\t<isodate>\t<subject>  then numstat rows.
   git -C "$d" log --all --no-merges \

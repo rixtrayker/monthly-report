@@ -5,38 +5,38 @@
    "since": "2026-03-20",
    "until": "2026-06-21"
   },
-  "total_commits": 997,
-  "total_add": 709770,
-  "total_del": 172718,
-  "total_cadd": 357839,
-  "total_cdel": 108513,
-  "net_loc": 537052,
-  "net_code": 249326,
+  "total_commits": 988,
+  "total_add": 705715,
+  "total_del": 172631,
+  "total_cadd": 353800,
+  "total_cdel": 108426,
+  "net_loc": 533084,
+  "net_code": 245374,
   "active_days": 67,
   "span_days": 93,
   "weekend_days_total": 28,
   "weekend_worked": 17,
   "weekend_off": 11,
   "weekend_commits": 328,
-  "weekday_commits": 669,
+  "weekday_commits": 660,
   "weekend_add": 91693,
   "weekend_del": 32414,
   "weekend_cadd": 89231,
   "weekend_cdel": 32408,
-  "weekend_pct": 32.9,
+  "weekend_pct": 33.2,
   "longest_streak": 15,
   "busiest_day": "2026-06-12",
   "busiest_day_commits": 144,
   "dow_commits": {
    "0": 83,
-   "1": 173,
+   "1": 172,
    "2": 149,
-   "3": 162,
+   "3": 160,
    "4": 190,
    "5": 138,
-   "6": 102
+   "6": 96
   },
-  "project_count": 13
+  "project_count": 10
  },
  "days": [
   {
@@ -194,16 +194,14 @@
    "date": "2026-04-02",
    "dow": 3,
    "weekend": false,
-   "commits": 4,
-   "add": 16876,
+   "commits": 2,
+   "add": 16262,
    "deleted": 10719,
-   "cadd": 8456,
+   "cadd": 7858,
    "cdel": 109,
    "projects": {
     "rixtrayker/sijilaty-frontend": 1,
-    "open-gitagent/gitagent": 1,
-    "Sijilaty/sijilaty-infra": 1,
-    "Sijilaty/pdf-generator": 1
+    "Sijilaty/sijilaty-infra": 1
    }
   },
   {
@@ -347,14 +345,13 @@
    "date": "2026-04-14",
    "dow": 1,
    "weekend": false,
-   "commits": 19,
-   "add": 32258,
-   "deleted": 7160,
-   "cadd": 15191,
-   "cdel": 7156,
+   "commits": 18,
+   "add": 32240,
+   "deleted": 7157,
+   "cadd": 15173,
+   "cdel": 7153,
    "projects": {
     "rixtrayker/sijilaty-frontend": 8,
-    "open-gitagent/gitagent": 1,
     "Sijilaty/sijilaty-backend": 10
    }
   },
@@ -408,13 +405,12 @@
    "date": "2026-04-19",
    "dow": 6,
    "weekend": false,
-   "commits": 7,
-   "add": 1634,
-   "deleted": 2159,
-   "cadd": 1634,
-   "cdel": 2159,
+   "commits": 6,
+   "add": 1595,
+   "deleted": 2130,
+   "cadd": 1595,
+   "cdel": 2130,
    "projects": {
-    "open-gitagent/gitagent": 1,
     "Sijilaty/sijilaty-backend": 6
    }
   },
@@ -1037,7 +1033,7 @@
    "cdel": 14,
    "projects": {
     "rixtrayker/docs-sijil": 4,
-    "rixtrayker/ehr-workspace": 1,
+    "ehr-workspace (local)": 1,
     "Sijilaty/sijilaty-backend": 1
    }
   },
@@ -1052,7 +1048,7 @@
    "cdel": 39,
    "projects": {
     "rixtrayker/docs-sijil": 4,
-    "rixtrayker/ehr-workspace": 5
+    "ehr-workspace (local)": 5
    }
   },
   {
@@ -1067,7 +1063,7 @@
    "projects": {
     "rixtrayker/docs-sijil": 9,
     "rixtrayker/ehr-sdk-js": 1,
-    "rixtrayker/ehr-workspace": 8,
+    "ehr-workspace (local)": 8,
     "rixtrayker/fhir-go": 6,
     "rixtrayker/fhir-pulumi": 1,
     "rixtrayker/sijil-ehr-frontend": 1
@@ -1084,7 +1080,7 @@
    "cdel": 187,
    "projects": {
     "rixtrayker/cloud-coding-setup": 8,
-    "rixtrayker/ehr-workspace": 1,
+    "ehr-workspace (local)": 1,
     "rixtrayker/sijil-ehr-frontend": 3
    }
   },
@@ -1101,7 +1097,7 @@
     "rixtrayker/cloud-coding-setup": 14,
     "rixtrayker/docs-sijil": 8,
     "rixtrayker/ehr-sdk-js": 1,
-    "rixtrayker/ehr-workspace": 13,
+    "ehr-workspace (local)": 13,
     "rixtrayker/fhir-go": 7,
     "rixtrayker/fhir-pulumi": 1,
     "rixtrayker/sijil-ehr-frontend": 11,
@@ -1120,7 +1116,7 @@
    "projects": {
     "rixtrayker/cloud-coding-setup": 4,
     "rixtrayker/docs-sijil": 7,
-    "rixtrayker/ehr-workspace": 14,
+    "ehr-workspace (local)": 14,
     "rixtrayker/fhir-go": 11,
     "rixtrayker/sijil-ehr-frontend": 9,
     "Sijilaty/sijilaty-backend": 7
@@ -1139,7 +1135,7 @@
     "rixtrayker/cloud-coding-setup": 9,
     "rixtrayker/docs-sijil": 9,
     "rixtrayker/ehr-sdk-js": 1,
-    "rixtrayker/ehr-workspace": 27,
+    "ehr-workspace (local)": 27,
     "rixtrayker/fhir-go": 35,
     "rixtrayker/sijilaty-frontend": 2,
     "rixtrayker/sijil-ehr-frontend": 59,
@@ -1168,20 +1164,19 @@
    "date": "2026-06-14",
    "dow": 6,
    "weekend": false,
-   "commits": 42,
-   "add": 28019,
-   "deleted": 2657,
-   "cadd": 16416,
-   "cdel": 2657,
+   "commits": 37,
+   "add": 24635,
+   "deleted": 2602,
+   "cadd": 13032,
+   "cdel": 2602,
    "projects": {
     "rixtrayker/cloud-coding-setup": 2,
     "rixtrayker/docs-sijil": 2,
     "rixtrayker/ehr-sdk-js": 1,
-    "rixtrayker/ehr-workspace": 4,
+    "ehr-workspace (local)": 4,
     "rixtrayker/fhir-go": 6,
     "rixtrayker/sijilaty-frontend": 1,
     "Sijilaty/sijilaty-infra": 2,
-    "rixtrayker/monthly-report": 5,
     "rixtrayker/sijil-ehr-frontend": 1,
     "Sijilaty/sijilaty-backend": 18
    }
@@ -1196,7 +1191,7 @@
    "cadd": 370,
    "cdel": 51,
    "projects": {
-    "rixtrayker/ehr-workspace": 2,
+    "ehr-workspace (local)": 2,
     "Sijilaty/sijilaty-infra": 2
    }
   },
@@ -1212,7 +1207,7 @@
    "projects": {
     "rixtrayker/docs-sijil": 1,
     "rixtrayker/ehr-sdk-js": 3,
-    "rixtrayker/ehr-workspace": 1,
+    "ehr-workspace (local)": 1,
     "Sijilaty/sijilaty-infra": 2,
     "rixtrayker/sijil-ehr-frontend": 16,
     "Sijilaty/sijilaty-backend": 55
@@ -1314,7 +1309,7 @@
    "active_days": 16
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "commits": 76,
    "add": 6128,
    "deleted": 128,
@@ -1366,33 +1361,6 @@
    "cadd": 2008,
    "cdel": 272,
    "active_days": 4
-  },
-  {
-   "project": "rixtrayker/monthly-report",
-   "commits": 5,
-   "add": 3384,
-   "deleted": 55,
-   "cadd": 3384,
-   "cdel": 55,
-   "active_days": 1
-  },
-  {
-   "project": "open-gitagent/gitagent",
-   "commits": 3,
-   "add": 383,
-   "deleted": 32,
-   "cadd": 383,
-   "cdel": 32,
-   "active_days": 3
-  },
-  {
-   "project": "Sijilaty/pdf-generator",
-   "commits": 1,
-   "add": 288,
-   "deleted": 0,
-   "cadd": 272,
-   "cdel": 0,
-   "active_days": 1
   }
  ],
  "commits": [
@@ -2306,7 +2274,7 @@
    "subject": "Initial fork of @oystehr/sdk 4.3.9 with Sijil gateway helpers."
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-16",
    "add": 968,
    "deleted": 0,
@@ -2315,7 +2283,7 @@
    "subject": "docs(reviews): add terminology stack design, licensing & live-API research"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-15",
    "add": 43,
    "deleted": 0,
@@ -2324,7 +2292,7 @@
    "subject": "docs: park UI enhancement ideas (deferred until after the reference match)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-15",
    "add": 8,
    "deleted": 8,
@@ -2333,7 +2301,7 @@
    "subject": "docs(tracking): close R25 (live-validation done), reconcile R10, close KI-06"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-14",
    "add": 1,
    "deleted": 0,
@@ -2342,7 +2310,7 @@
    "subject": "docs(R25 T2): patient-reads validated end-to-end + KI-17 (link/fixture patient match)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-14",
    "add": 228,
    "deleted": 1,
@@ -2351,7 +2319,7 @@
    "subject": "docs(R25): live-validation phase — plan, T0 recipe, KI triage, SDK clarity"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-14",
    "add": 296,
    "deleted": 0,
@@ -2360,7 +2328,7 @@
    "subject": "docs(review): pre-R22 arch/code/gap review + go-live security fixes landed"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-14",
    "add": 3,
    "deleted": 2,
@@ -2369,7 +2337,7 @@
    "subject": "docs(tracking): R21 / KI-13 closed — live-portal tri-state degradation merged"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 7,
    "deleted": 3,
@@ -2378,7 +2346,7 @@
    "subject": "docs(tracking): remaining-items sweep — R1/R3/R13/R18 + R19 follow-ups closed; KI-03/05/09/12 fixed; R21 logged"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 9,
    "deleted": 7,
@@ -2387,7 +2355,7 @@
    "subject": "docs(tracking): verification sweep results; KI-13 + R21 logged"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 1,
@@ -2396,7 +2364,7 @@
    "subject": "docs: KI-08 retired — git-only transport; S3 relay deleted"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 0,
@@ -2405,7 +2373,7 @@
    "subject": "docs(changelog): relay mirrored; resurrection class closed"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1062,
    "deleted": 1,
@@ -2414,7 +2382,7 @@
    "subject": "docs(architecture): R20 — three-level D2 diagram charge (7 diagrams incl. animated identity chain)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 0,
@@ -2423,7 +2391,7 @@
    "subject": "docs(tracking): R19 complete — all six tasks merged, finals green"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 0,
@@ -2432,7 +2400,7 @@
    "subject": "docs(tracking): T4 done; R20 docs+D2 queued; d2 engine installed"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 4,
    "deleted": 3,
@@ -2441,7 +2409,7 @@
    "subject": "docs(hygiene): R19 T4 — HANDOFF remotes fixed, headroom rule in core rules, KI-08/KI-12 status notes, dated reports archived"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 0,
@@ -2450,7 +2418,7 @@
    "subject": "docs(changelog): final sync + stale-relic cleanup"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 1,
@@ -2459,7 +2427,7 @@
    "subject": "docs(tracking): R17 complete — all streams on main, gates green"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 0,
@@ -2468,7 +2436,7 @@
    "subject": "docs(tracking): W4 merged; R18 minor follow-ups logged"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 0,
@@ -2477,7 +2445,7 @@
    "subject": "docs(changelog): W3 merged; SSH transport issue root-caused, HTTPS pinned"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 0,
@@ -2486,7 +2454,7 @@
    "subject": "docs(changelog): R17 W1-W3 launched in parallel on the resized worker"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 3,
    "deleted": 0,
@@ -2495,7 +2463,7 @@
    "subject": "docs(tracking): MVP-live unlocked — R17 closeout item opened"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 0,
@@ -2504,7 +2472,7 @@
    "subject": "docs(changelog): worker rebuilt + headroom wrap live"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 0,
@@ -2513,7 +2481,7 @@
    "subject": "docs(changelog): deploy validated; worker terminated; arc complete"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 1,
@@ -2522,7 +2490,7 @@
    "subject": "docs(tracking): R16 complete (PRs #10/#11 + backend merged); deploy run launched"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 0,
@@ -2531,7 +2499,7 @@
    "subject": "docs(changelog): R16 backend merged; PR #10 open; deploy leg planned"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 1,
@@ -2540,7 +2508,7 @@
    "subject": "docs(tracking): R15 closed (PR #9 merged)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 1,
@@ -2549,7 +2517,7 @@
    "subject": "docs(tracking): R16 reviewed + contract landed; merges pending operator"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 1,
@@ -2558,7 +2526,7 @@
    "subject": "docs(tracking): R16 launched (backend + frontend runs on the worker)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 3,
    "deleted": 2,
@@ -2567,7 +2535,7 @@
    "subject": "docs(tracking): R14 merged; R15 at PR #9 pending CI"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 0,
@@ -2576,7 +2544,7 @@
    "subject": "docs(changelog): R14 reviewed + contract leg landed"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 3,
    "deleted": 2,
@@ -2585,7 +2553,7 @@
    "subject": "docs(tracking): PR #8 merged; R14+R15 launched on the worker (t3.2xlarge)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 2,
    "deleted": 1,
@@ -2594,7 +2562,7 @@
    "subject": "docs(tracking): R13 Leg 3 shipped to PR #8 (ADR 0040)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 1,
    "deleted": 1,
@@ -2603,7 +2571,7 @@
    "subject": "docs(roadmap): drop stale R13 merge-pending fragment"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-12",
    "add": 3,
    "deleted": 2,
@@ -2612,7 +2580,7 @@
    "subject": "docs(tracking): R12 closed (PR #7 merged), R13 backend merged to main"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 2,
    "deleted": 1,
@@ -2621,7 +2589,7 @@
    "subject": "docs(tracking): R13 backend+contract legs done — worker run reviewed, 5 specced paths landed"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 3,
    "deleted": 1,
@@ -2630,7 +2598,7 @@
    "subject": "docs(bugs): KI-09 partial fix + KI-12 worker data-volume loss & S3 wipe recovery"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 12,
    "deleted": 9,
@@ -2639,7 +2607,7 @@
    "subject": "docs(tracking): R13 backend leg launched on worker; R12 CI green; analytics presets 1D/7D/30D/QTD/YTD"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 58,
    "deleted": 0,
@@ -2648,7 +2616,7 @@
    "subject": "docs(roadmap): R12-R16 completion arc + analytics/messaging value addendum"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 1,
    "deleted": 0,
@@ -2657,7 +2625,7 @@
    "subject": "docs(changelog): P0 audit batch landed (frontend fixes branch + gap-doc refresh)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 1072,
    "deleted": 0,
@@ -2666,7 +2634,7 @@
    "subject": "docs(audit): frontend↔backend gap audit 2026-06-11 — API gaps, payload mismatches, UX findings"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 9,
    "deleted": 5,
@@ -2675,7 +2643,7 @@
    "subject": "docs(tracking): R2 done — docs-sijil + sijil-web fork synced to private remotes (KI-04 closed)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 1,
    "deleted": 0,
@@ -2684,7 +2652,7 @@
    "subject": "docs(changelog): cloud-coding-setup ansible vhost/testing layer (nginx + local DNS/TLS, DOMAINS.md, TESTING-GUIDE.md)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 3,
    "deleted": 0,
@@ -2693,7 +2661,7 @@
    "subject": "docs(changelog): record the no-docker-until-MVP declaration"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 4,
    "deleted": 2,
@@ -2702,7 +2670,7 @@
    "subject": "docs(tracking): R10 backend merged + frontend legs deferred (NO-DOCKER decision), R11 done, changelog"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 3,
    "deleted": 1,
@@ -2711,7 +2679,7 @@
    "subject": "docs(tracking): R10 backend half done (36/36 gate), KI-10 closed; frontend half blocked on mid-merge"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 3,
    "deleted": 0,
@@ -2720,7 +2688,7 @@
    "subject": "docs(tracking): Phase E done (ADR 0034), R10 worker-legs batch + R11 remaining swaps opened, changelog"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 2,
    "deleted": 1,
@@ -2729,7 +2697,7 @@
    "subject": "docs(tracking): R5 done (native Go handlers; deploy + fixtures flagged), Phase D changelog"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-11",
    "add": 4,
    "deleted": 2,
@@ -2738,7 +2706,7 @@
    "subject": "docs(tracking): R7 done (worker legs flagged), KI-10 fixed + KI-11 logged-fixed, Phase C changelog"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 2,
    "deleted": 1,
@@ -2747,7 +2715,7 @@
    "subject": "docs(tracking): R9 done (code-complete, live legs flagged), Phase A+B changelog"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 303,
    "deleted": 1,
@@ -2756,7 +2724,7 @@
    "subject": "docs(plan): ARCH-DX plan adopted — Phase A done (R8), R9 opened, changelog"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 5,
    "deleted": 1,
@@ -2765,7 +2733,7 @@
    "subject": "docs(tracking): R6 done (live validation green), KI-10 get-wait-status sidecar bug, changelog"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 4,
    "deleted": 2,
@@ -2774,7 +2742,7 @@
    "subject": "docs(tracking): R6 mostly done, KI-08 root cause (s3:PutObject denied), changelog"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 3,
    "deleted": 0,
@@ -2783,7 +2751,7 @@
    "subject": "docs(bugs): KI-08 cloud-sync links/profile failures, KI-09 cloud-continue permission-less headless runs"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 1,
    "deleted": 1,
@@ -2792,7 +2760,7 @@
    "subject": "docs(handoff-next): resolve worker id by tag + native-only note (was stale id)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 3,
    "deleted": 0,
@@ -2801,7 +2769,7 @@
    "subject": "docs(plan): MVP-NEXT — contract harness + UX hardening plan (R6/R7)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 553,
    "deleted": 0,
@@ -2810,7 +2778,7 @@
    "subject": "docs: frontend review + next-phase planning (2026-06-10)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 22,
    "deleted": 0,
@@ -2819,7 +2787,7 @@
    "subject": "docs(agents): prefer git worktrees to avoid overlapping agent work"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 91,
    "deleted": 0,
@@ -2828,7 +2796,7 @@
    "subject": "docs: HANDOFF-NEXT — plan for remaining frontend work (coding-agent handoff)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 16,
    "deleted": 9,
@@ -2837,7 +2805,7 @@
    "subject": "docs(handoff): mark MVP journeys validated live on demo-03"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 4,
    "deleted": 0,
@@ -2846,7 +2814,7 @@
    "subject": "docs(changelog): log net-new endpoint specs + KI-07 verification"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-10",
    "add": 2,
    "deleted": 0,
@@ -2855,7 +2823,7 @@
    "subject": "docs(tracking): R5 net-new endpoints + KI-07 verified fixed"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-09",
    "add": 121,
    "deleted": 0,
@@ -2864,7 +2832,7 @@
    "subject": "docs: add HANDOFF.md — MVP implementation guide (frontend → cloud → ship)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-08",
    "add": 6,
    "deleted": 0,
@@ -2873,7 +2841,7 @@
    "subject": "docs(workspace): list the new workflow scripts + commands in README"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-08",
    "add": 382,
    "deleted": 1,
@@ -2882,7 +2850,7 @@
    "subject": "feat(workspace): commit/review/release workflow layer"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-08",
    "add": 161,
    "deleted": 0,
@@ -2891,7 +2859,7 @@
    "subject": "feat: sync-all.mjs + WORKFLOWS.md — multi-repo status/sync commands"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-08",
    "add": 27,
    "deleted": 0,
@@ -2900,7 +2868,7 @@
    "subject": "docs: add BRANCHES.md branch ledger + reference it from AGENTS.md"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-08",
    "add": 124,
    "deleted": 0,
@@ -2909,7 +2877,7 @@
    "subject": "feat: workspace tracking — CHANGELOG, BUGS, ROADMAP, VERSION"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-08",
    "add": 3,
    "deleted": 2,
@@ -2918,7 +2886,7 @@
    "subject": "fix(clone-forks): sijil-ehr-frontend now has a remote (rixtrayker)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-08",
    "add": 8,
    "deleted": 6,
@@ -2927,7 +2895,7 @@
    "subject": "docs(workspace): correct opencode migration claim in README (git-keyed, no migration)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-08",
    "add": 16,
    "deleted": 30,
@@ -2936,7 +2904,7 @@
    "subject": "fix: opencode needs NO migration — it's keyed by .git/opencode, not path"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-07",
    "add": 25,
    "deleted": 0,
@@ -2945,7 +2913,7 @@
    "subject": "docs(workspace): wire migrate-sessions into README + justfile"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-07",
    "add": 155,
    "deleted": 0,
@@ -2954,7 +2922,7 @@
    "subject": "feat: migrate-sessions.mjs — move Claude + opencode sessions on repo relocation"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-07",
    "add": 53,
    "deleted": 7,
@@ -2963,7 +2931,7 @@
    "subject": "fix: replace false .gitmodules promise with clone-forks.sh (no duplication)"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-07",
    "add": 4,
    "deleted": 1,
@@ -2972,7 +2940,7 @@
    "subject": "docs(justfile): note verify is enforced via docs-sijil pre-commit hook"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-07",
    "add": 10,
    "deleted": 5,
@@ -2981,7 +2949,7 @@
    "subject": "fix: de-reference deleted standalone ottehr/ clone"
   },
   {
-   "project": "rixtrayker/ehr-workspace",
+   "project": "ehr-workspace (local)",
    "date": "2026-06-06",
    "add": 177,
    "deleted": 0,
@@ -5105,33 +5073,6 @@
    "subject": "Initial commit"
   },
   {
-   "project": "open-gitagent/gitagent",
-   "date": "2026-04-19",
-   "add": 39,
-   "deleted": 29,
-   "cadd": 39,
-   "cdel": 29,
-   "subject": "chore: update sijilati agent rules for GitButler and main-review workflow"
-  },
-  {
-   "project": "open-gitagent/gitagent",
-   "date": "2026-04-14",
-   "add": 18,
-   "deleted": 3,
-   "cadd": 18,
-   "cdel": 3,
-   "subject": "docs: add stacked diffs via GitButler rules to sijilati agent config"
-  },
-  {
-   "project": "open-gitagent/gitagent",
-   "date": "2026-04-02",
-   "add": 326,
-   "deleted": 0,
-   "cadd": 326,
-   "cdel": 0,
-   "subject": "feat(agent-config): add comprehensive rules for sijilati agent including versioning, controllers, commits"
-  },
-  {
    "project": "Sijilaty/sijilaty-infra",
    "date": "2026-06-20",
    "add": 5,
@@ -5300,60 +5241,6 @@
    "deleted": 1,
    "cadd": 10,
    "cdel": 1,
-   "subject": "Initial commit"
-  },
-  {
-   "project": "rixtrayker/monthly-report",
-   "date": "2026-06-14",
-   "add": 42,
-   "deleted": 24,
-   "cadd": 42,
-   "cdel": 24,
-   "subject": "docs: update README for two reports + build.sh dual-pair workflow"
-  },
-  {
-   "project": "rixtrayker/monthly-report",
-   "date": "2026-06-14",
-   "add": 1391,
-   "deleted": 29,
-   "cadd": 1391,
-   "cdel": 29,
-   "subject": "feat: add new-frontend report (admin dashboard + centrals) as separate files"
-  },
-  {
-   "project": "rixtrayker/monthly-report",
-   "date": "2026-06-14",
-   "add": 212,
-   "deleted": 0,
-   "cadd": 212,
-   "cdel": 0,
-   "subject": "docs: add reusable exec-report prompt/style guide (PROMPT.md)"
-  },
-  {
-   "project": "rixtrayker/monthly-report",
-   "date": "2026-06-14",
-   "add": 128,
-   "deleted": 2,
-   "cadd": 128,
-   "cdel": 2,
-   "subject": "docs: document update workflow + add build.sh to re-embed data"
-  },
-  {
-   "project": "rixtrayker/monthly-report",
-   "date": "2026-06-14",
-   "add": 1611,
-   "deleted": 0,
-   "cadd": 1611,
-   "cdel": 0,
-   "subject": "Add Sijilati monthly progress report (May 15 – Jun 14 2026)"
-  },
-  {
-   "project": "Sijilaty/pdf-generator",
-   "date": "2026-04-02",
-   "add": 288,
-   "deleted": 0,
-   "cadd": 272,
-   "cdel": 0,
    "subject": "Initial commit"
   },
   {

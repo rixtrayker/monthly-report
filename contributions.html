@@ -401,7 +401,7 @@ function renderDow(){
 // ---------- weekend ledger ----------
 function renderWeekendTable(){
   const t=document.getElementById('wkdtable');
-  const we = DATA.days.filter(d=>d.weekend);
+  const we = DATA.days.filter(d=>d.weekend).slice().reverse();  // latest → earliest
   let rows = `<tr><th>Date</th><th>Day</th><th>Status</th><th class="r">Commits</th><th class="r">Code +/−</th></tr>`;
   we.forEach(d=>{
     const worked = activeProject ? (d.projects[activeProject]||0)>0 : d.commits>0;

@@ -11,8 +11,9 @@
 # in sync with the fetched data. Otherwise file:// shows stale numbers.
 #
 # Reports handled (DATA:HTML pairs):
-#   report-data.json    -> index.html        (backend / monthly report)
-#   frontend-data.json  -> frontend.html     (new frontend: admin + central)
+#   report-data.json    -> index.html          (backend / monthly report)
+#   frontend-data.json  -> frontend.html       (new frontend: admin + central)
+#   contrib-data.json   -> contributions.html  (3-month contribution dashboard)
 #
 # Usage:
 #   ./build.sh            # re-embed all, report status
@@ -25,6 +26,7 @@ cd "$(dirname "$0")"
 PAIRS=(
   "report-data.json:index.html"
   "frontend-data.json:frontend.html"
+  "contrib-data.json:contributions.html"
 )
 
 MODE="${1:-}"
